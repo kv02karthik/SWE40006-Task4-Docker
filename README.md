@@ -28,3 +28,17 @@ docker run --rm -p 8082:10000 \
 Open <http://localhost:8082> and use `/health` for the health endpoint.
 
 Live deployment: <https://swe40006-task4-distinction.onrender.com>
+
+## Task 4.4 - High Distinction
+
+Non-web addition and subtraction calculator. Results are persisted through a host-mounted `/data` directory.
+
+```bash
+mkdir -p calculator-data
+docker build -t task4-calculator:1.0 src/task4.4-hd
+docker run --name task4-calculator \
+  -v "$(pwd)/calculator-data:/data" \
+  task4-calculator:1.0 add 10 4
+```
+
+The result is printed in the container logs and appended to `calculator-data/history.txt`.
