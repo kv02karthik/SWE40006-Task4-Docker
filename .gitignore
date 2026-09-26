@@ -1,0 +1,8 @@
+.DS_Store
+tmp/
+evidence/
+submission/
+*.pdf
+*.docx
+__pycache__/
+*.py[cod]
