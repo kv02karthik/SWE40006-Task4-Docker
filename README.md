@@ -26,3 +26,5 @@ docker run --rm -p 8082:10000 \
 ```
 
 Open <http://localhost:8082> and use `/health` for the health endpoint.
+
+Live deployment: <https://swe40006-task4-distinction.onrender.com>
