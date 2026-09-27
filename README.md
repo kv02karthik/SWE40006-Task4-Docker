@@ -13,6 +13,32 @@ docker run --rm -p 8081:5000 task4-credit:1.0
 
 Open <http://localhost:8081>.
 
+### Secondary Docker environment
+
+The Docker Hub image was also pulled and run inside an independent Docker-in-Docker daemon on the same Mac. The daemon is available only through loopback ports.
+
+```bash
+docker run -d --privileged --name task4-secondary-docker \
+  --restart unless-stopped \
+  -e DOCKER_TLS_CERTDIR= \
+  -p 127.0.0.1:23750:2375 \
+  -p 127.0.0.1:8083:8080 \
+  docker:29-dind
+
+docker context create task4-secondary \
+  --docker "host=tcp://127.0.0.1:23750"
+
+docker --context task4-secondary pull \
+  karthik02kv/swe40006-task4-credit:1.0
+
+docker --context task4-secondary run -d \
+  --name task4-credit-secondary \
+  -p 8080:5000 \
+  karthik02kv/swe40006-task4-credit:1.0
+```
+
+The application from the secondary environment is available at <http://127.0.0.1:8083>.
+
 ## Task 4.3 - Distinction
 
 Minimal Flask status application using environment variables, Gunicorn, a non-root user, a health check, and an exposed network port.
